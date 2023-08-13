@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "dependencies": {
     "@koa/router": "^12.0.0",
     "@prisma/client": "^5.1.1",
@@ -10,13 +9,17 @@
     "@types/koa": "^2.13.8",
     "@types/koa__router": "^12.0.0",
     "@types/node": "^20.4.8",
+    "nodemon": "^3.0.1",
     "prisma": "^5.1.1",
     "ts-node": "^10.9.1",
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "^5.1.6"
   },
   "scripts": {
-    "dev": "TS_NODE_PROJECT=tsconfig.json NODE_PATH=src nodemon src/server.js",
-    "start": "node src/server.js",
-    "build": "prisma generate && prisma migrate deploy"
+    "lint": "tslint --project tsconfig.json --format stylish",
+    "build": "tsc && prisma generate && prisma migrate deploy",
+    "dev": "ts-node src/server.ts",
+    "start": "nodemon"
   }
 }
