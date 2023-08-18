@@ -1,5 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+import { 
+	findManyPlants, FindManyPlantsArgs,
+	createPlant, CreatePlantArgs
+} from './plants';
 
-const prisma = new PrismaClient()
+export const getPlants = async (args?: FindManyPlantsArgs) => await findManyPlants(args);
 
-export const getPlants = async () => await prisma.plant.findMany() 
+export const postPlant = async (args: CreatePlantArgs) => await createPlant(args);
