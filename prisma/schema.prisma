@@ -7,9 +7,61 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id    Int    @default(autoincrement())
+  email String @unique
+}
+
 model Plant {
-  id            Int       @id @default(autoincrement())
-  name          String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Float    @default(0)
+  stocks    Stock[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Nursery {
+  id        Int      @id @default(autoincrement())
+  name      String
+  stocks    Stock[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Stock {
+  id         Int         @id @default(autoincrement())
+  quantity   Int
+  plantId    Int
+  nurseryId  Int
+  OrderItems OrderItem[]
+  plant      Plant       @relation(fields: [plantId], references: [id])
+  nursery    Nursery     @relation(fields: [nurseryId], references: [id])
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Order {
+  id         Int         @id @default(autoincrement())
+  userId     Int
+  date       DateTime
+  status     OrderStatus @default(AWAITING_PAYMENT)
+  orderItems OrderItem[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id       Int   @id @default(autoincrement())
+  orderId  Int
+  stockId  Int
+  quantity Int
+  order    Order @relation(fields: [orderId], references: [id])
+  stock    Stock @relation(fields: [stockId], references: [id])
+}
+
+enum OrderStatus {
+  AWAITING_PAYMENT
+  PAID
+  SHIPPED
 }
