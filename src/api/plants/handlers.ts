@@ -1,8 +1,9 @@
 import { 
-	findManyPlants, FindManyPlantsArgs,
-	createPlant, CreatePlantArgs
+	findManyPlantsHandler, FindManyPlantsArgs,
+	createPlantHandler, CreatePlantArgs
 } from './plants';
 
-export const getPlants = async (args?: FindManyPlantsArgs) => await findManyPlants(args);
+export const findManyPlants = async (args?: FindManyPlantsArgs) => await findManyPlantsHandler(args);
 
-export const postPlant = async (args: CreatePlantArgs) => await createPlant(args);
+export const createPlant = async (args: CreatePlantArgs) => await createPlantHandler(args);
+

@@ -7,12 +7,12 @@ const router = new Router({
 
 router
   .get('/', async (ctx, next) => {
-    ctx.body = await handlers.getPlants()
+    ctx.body = await handlers.findManyPlants()
   })
   .post('/', async (ctx, next) => {
     const body = ctx.request.body
     console.log(body)
-    const plant = await handlers.postPlant(body)
+    const plant = await handlers.createPlant(body)
     ctx.response.status = 200
   })
 
